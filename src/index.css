@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@1,300;1,600&family=Oswald:wght@200;300;400;500&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Oswald", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Bebas Neue", sans-serif;
+  --font-heavy: "Anton", sans-serif;
+  --font-serif: "Cormorant Garamond", serif;
+  
+  --color-brand-red: #C3073F;
+  --color-brand-red-light: #E10645;
+  --color-bg-dark: #050505;
+  --color-bg-card: #0B0B0D;
+  --color-text-muted: #B8B8B8;
+  --color-text-dim: #8A8A8A;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-bg-dark text-white font-sans antialiased overflow-x-hidden;
+    cursor: none;
+  }
+}
+
+@layer utilities {
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+
+  .transform-style-3d {
+    transform-style: preserve-3d;
+  }
+  
+  .mask-reveal {
+    mask-image: linear-gradient(to bottom, black 0%, black 100%);
+    mask-size: 100% 0%;
+    mask-repeat: no-repeat;
+    mask-position: top;
+    transition: mask-size 1.2s cubic-bezier(0.19, 1, 0.22, 1);
+  }
+  
+  .mask-reveal-active {
+    mask-size: 100% 100%;
+  }
+
+  .grain {
+    position: fixed;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    pointer-events: none;
+    z-index: 9998;
+    opacity: .03;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='256'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='256' height='256' filter='url(%23n)'/%3E%3C/svg%3E");
+    animation: grain-dance 8s steps(10) infinite;
+  }
+
+  @keyframes grain-dance {
+    0% { transform: translate(0) }
+    10% { transform: translate(-2%, -3%) }
+    20% { transform: translate(-4%, 2%) }
+    30% { transform: translate(3%, -4%) }
+    40% { transform: translate(2%, 3%) }
+    50% { transform: translate(-1%, -1%) }
+    60% { transform: translate(-3%, 2%) }
+    70% { transform: translate(4%, -1%) }
+    80% { transform: translate(-2%, 4%) }
+    90% { transform: translate(3%, 1%) }
+  }
+}
