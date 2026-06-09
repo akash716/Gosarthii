@@ -79,7 +79,7 @@ export default function HeroSlider() {
 
           {/* Floating Glass Tech Cards */}
           <div className="absolute top-[30%] right-[8%] z-20 space-y-4 hidden xl:block">
-            {Object.entries(SLIDES[currentSlide].stats).map(([key, val], i) => (<motion.div key={key} initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 1 + i * 0.1 }} className="bg-white/[0.03] backdrop-blur-md border border-white/[0.05] p-5 rounded-sm min-w-[200px] flex items-center justify-between">
+            {Object.entries(SLIDES[currentSlide].stats).map(([key, val], i) => (<motion.div key={key} initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 1 + i * 0.1 }} className="bg-[#0d0d0d] border border-white/[0.08] p-5 rounded-sm min-w-[200px] flex items-center justify-between">
                 <div>
                   <p className="text-[10px] tracking-[0.3em] text-brand-red uppercase mb-1">{key === 'zeroToHundred' ? '0-100' : key}</p>
                   <p className="font-mono text-lg text-white/90">{val}</p>
