@@ -77,17 +77,7 @@ export default function HeroSlider() {
              <div className="absolute top-0 left-1/2 w-px h-screen bg-linear-to-b from-transparent via-white/5 to-transparent translate-x-[20vw]"/>
           </div>
 
-          {/* Floating Glass Tech Cards */}
-          <div className="absolute top-[30%] right-[8%] z-20 space-y-4 hidden xl:block">
-            {Object.entries(SLIDES[currentSlide].stats).map(([key, val], i) => (<motion.div key={key} initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 1 + i * 0.1 }} className="bg-[#0d0d0d] border border-white/[0.08] p-5 rounded-sm min-w-[200px] flex items-center justify-between">
-                <div>
-                  <p className="text-[10px] tracking-[0.3em] text-brand-red uppercase mb-1">{key === 'zeroToHundred' ? '0-100' : key}</p>
-                  <p className="font-mono text-lg text-white/90">{val}</p>
-                </div>
-                <div className="w-1 h-8 bg-brand-red/[0.15] rounded-full overflow-hidden">
-                  <motion.div initial={{ height: 0 }} animate={{ height: "100%" }} transition={{ duration: 1.5, delay: 1.5 + i * 0.2 }} className="w-full bg-brand-red"/>
-                </div>
-              </motion.div>))}
+
           </div>
         </motion.div>
       </AnimatePresence>
