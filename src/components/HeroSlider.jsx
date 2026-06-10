@@ -76,9 +76,6 @@ export default function HeroSlider() {
              <div className="absolute top-0 left-1/2 w-px h-screen bg-linear-to-b from-transparent via-white/5 to-transparent -translate-x-[50vw]"/>
              <div className="absolute top-0 left-1/2 w-px h-screen bg-linear-to-b from-transparent via-white/5 to-transparent translate-x-[20vw]"/>
           </div>
-
-
-          </div>
         </motion.div>
       </AnimatePresence>
 
