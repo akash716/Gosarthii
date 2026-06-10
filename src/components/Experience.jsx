@@ -58,8 +58,8 @@ const Card = ({ card, i }) => {
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden origin-center">
         <motion.div style={{ x, y }} className="w-[120%] h-[120%] -left-[10%] -top-[10%] absolute">
           <motion.img variants={{
-            initial: { scale: 1, opacity: 0.05 },
-            hover: { scale: 1.1, opacity: 0.2 }
+            initial: { scale: 1, opacity: 0.25 },
+            hover: { scale: 1.1, opacity: 0.45 }
         }} transition={{ duration: 1.5, ease: [0.19, 1, 0.22, 1] }} src={card.img} alt={card.title} className="w-full h-full object-cover grayscale"/>
         </motion.div>
         {/* Cinematic Gradient Fade */}
