@@ -311,7 +311,7 @@ function Founder() {
               <motion.div initial={{ scaleX: 0 }} animate={isInView ? { scaleX: 1 } : {}} transition={{ duration: 1, delay: 0.5 }} className="absolute -top-4 -left-4 w-24 h-px bg-brand-red origin-left"/>
               <motion.div initial={{ scaleY: 0 }} animate={isInView ? { scaleY: 1 } : {}} transition={{ duration: 1, delay: 0.7 }} className="absolute -top-4 -left-4 w-px h-24 bg-brand-red origin-top"/>
 
-              <div className="clickable aspect-[4/5] overflow-hidden relative shadow-2xl">
+              <div className="clickable aspect-[4/5] overflow-visible relative shadow-2xl">
                 <motion.img style={{ scale: 1.1, y: imgY }} src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=85" alt="Riyank Motta" className="w-full h-full object-cover grayscale brightness-50 group-hover:grayscale-0 group-hover:brightness-100 transition-all duration-1000"/>
                 {/* Metallic Scanning Sweep */}
                 <motion.div animate={{ x: ["-100%", "200%"] }} transition={{ duration: 3, repeat: Infinity, ease: "linear", repeatDelay: 1 }} className="absolute inset-0 bg-linear-to-r from-transparent via-white/10 to-transparent skew-x-[-30deg] pointer-events-none"/>
@@ -349,7 +349,7 @@ function Founder() {
         }}>
                 <h4 className="text-[10px] tracking-[0.5em] text-brand-red mb-4 font-mono">Biography</h4>
                 <p className="text-base font-light tracking-wider text-white/70 leading-relaxed">
-                  With a career forged in the high-stakes world of luxury automotive sales, Riyank Motta founded Go Sarthi to bridge the gap between transaction and relationship.
+                  With 16 years forged in the high-stakes world of luxury automotive sales — across Porsche, Mercedes-Benz, and Audi — Riyank Motta founded Go Sarthi to bridge the gap between transaction and relationship.
                 </p>
               </motion.div>
               <motion.div variants={{
@@ -369,7 +369,8 @@ function Founder() {
         }} className="space-y-6">
                {[
             { brand: "Porsche Centre Mumbai", role: "Sales Manager", year: "2023 — 2025" },
-            { brand: "Mercedes-Benz Landmark Cars", role: "Senior Manager Sales", year: "2017 — 2023" }
+            { brand: "Mercedes-Benz Landmark Cars", role: "Senior Manager Sales", year: "2017 — 2023" },
+            { brand: "Audi", role: "Sales Consultant", year: "2009 — 2017" }
         ].map((job, idx) => (<motion.div key={idx} variants={{
                 initial: { opacity: 0, x: -20 },
                 visible: { opacity: 1, x: 0 }
