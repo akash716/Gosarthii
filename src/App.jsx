@@ -34,6 +34,7 @@ function Navbar() {
             }
         }
     };
+    // change ag1n
     return (<>
       <nav className={cn("fixed top-0 left-0 right-0 z-[100] px-4 md:px-16 py-4 md:py-6 transition-all duration-500", scrolled ? "bg-bg-dark/95 backdrop-blur-xl border-b border-brand-red/10 py-3 md:py-4" : "bg-transparent")}>
         <div className="flex items-center justify-between">
