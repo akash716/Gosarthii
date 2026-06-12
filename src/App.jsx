@@ -313,7 +313,7 @@ function Founder() {
               <motion.div initial={{ scaleY: 0 }} animate={isInView ? { scaleY: 1 } : {}} transition={{ duration: 1, delay: 0.7 }} className="absolute -top-4 -left-4 w-px h-24 bg-brand-red origin-top"/>
 
               <div className="clickable aspect-[4/5] overflow-visible relative shadow-2xl">
-                <motion.img style={{ scale: 1.1, y: imgY }} src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=85" alt="Riyank Motta" className="w-full h-full object-cover grayscale brightness-50 group-hover:grayscale-0 group-hover:brightness-100 transition-all duration-1000"/>
+                <motion.img style={{ scale: 1.1, y: imgY }} src="/riyank.jpg?auto=format&fit=crop&w=800&q=85" alt="Riyank Motta" className="w-full h-full object-cover grayscale brightness-50 group-hover:grayscale-0 group-hover:brightness-100 transition-all duration-1000"/>
                 {/* Metallic Scanning Sweep */}
                 <motion.div animate={{ x: ["-100%", "200%"] }} transition={{ duration: 3, repeat: Infinity, ease: "linear", repeatDelay: 1 }} className="absolute inset-0 bg-linear-to-r from-transparent via-white/10 to-transparent skew-x-[-30deg] pointer-events-none"/>
                 {/* Image Overlay */}
