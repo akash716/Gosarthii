@@ -392,35 +392,24 @@ function Founder() {
       </motion.div>
     </SectionReveal>);
 }
-// ─── Instagram Posts — replace with your actual post URLs ────────────────────
-const INSTAGRAM_POSTS = [
-  { url: "https://www.instagram.com/reel/DZWwvU3MDc4/?igsh=MWVwZ3NvNjJiZDE0MA==/", img: "", type: "IMAGE" },
-  { url: "https://www.instagram.com/p/REPLACE_2/", img: "", type: "IMAGE" },
-  { url: "https://www.instagram.com/p/REPLACE_3/", img: "", type: "IMAGE" },
-  { url: "https://www.instagram.com/p/REPLACE_4/", img: "", type: "VIDEO" },
-  { url: "https://www.instagram.com/p/REPLACE_5/", img: "", type: "IMAGE" },
-  { url: "https://www.instagram.com/p/REPLACE_6/", img: "", type: "IMAGE" },
+// ─── Gallery — apni images public/gallery/ folder mein daalo ─────────────────
+// img: public folder mein image path, url: Instagram post link
+const GALLERY_ITEMS = [
+  { img: "/gallery/g1.jpg", url: "https://www.instagram.com/gosarthii/", type: "IMAGE" },
+  { img: "/gallery/g2.jpg", url: "https://www.instagram.com/gosarthii/", type: "VIDEO" },
+  { img: "/gallery/g3.jpg", url: "https://www.instagram.com/gosarthii/", type: "IMAGE" },
+  { img: "/gallery/g4.jpg", url: "https://www.instagram.com/gosarthii/", type: "IMAGE" },
+  { img: "/gallery/g5.jpg", url: "https://www.instagram.com/gosarthii/", type: "VIDEO" },
+  { img: "/gallery/g6.jpg", url: "https://www.instagram.com/gosarthii/", type: "IMAGE" },
 ];
 
 function Gallery() {
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
 
-  useEffect(() => {
-    if (!document.getElementById('instagram-embed-script')) {
-      const script = document.createElement('script');
-      script.id = 'instagram-embed-script';
-      script.src = 'https://www.instagram.com/embed.js';
-      script.async = true;
-      document.body.appendChild(script);
-      script.onload = () => window.instgrm?.Embeds.process();
-    } else {
-      window.instgrm?.Embeds.process();
-    }
-  }, []);
-
   return (
     <section id="gallery" ref={sectionRef} className="bg-bg-dark pt-32 pb-24 px-6 md:px-16 relative overflow-hidden">
+      {/* Ambient glow */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-4xl h-px bg-linear-to-r from-transparent via-brand-red/20 to-transparent" />
       <motion.div
         animate={{ opacity: [0.05, 0.12, 0.05], scale: [1, 1.05, 1] }}
@@ -429,6 +418,7 @@ function Gallery() {
       />
 
       <div className="max-w-7xl mx-auto relative z-10">
+        {/* Header */}
         <div className="mb-16 text-center md:text-left">
           <div className="flex items-center gap-3 mb-6 md:justify-start justify-center">
             <div className="w-8 h-px bg-brand-red" />
@@ -445,24 +435,47 @@ function Gallery() {
 
         {/* Masonry Grid */}
         <div className="columns-1 sm:columns-2 lg:columns-3 gap-4">
-          {INSTAGRAM_POSTS.map((post, i) => (
-            <motion.div
+          {GALLERY_ITEMS.map((item, i) => (
+            <motion.a
               key={i}
+              href={item.url}
+              target="_blank"
+              rel="noopener noreferrer"
               initial={{ opacity: 0, y: 40 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.7, delay: i * 0.1, ease: [0.19, 1, 0.22, 1] }}
-              className="break-inside-avoid mb-4 overflow-hidden rounded-sm border border-white/5 hover:border-brand-red/20 transition-all duration-500"
+              className="break-inside-avoid mb-4 block relative overflow-hidden rounded-sm border border-white/5 hover:border-brand-red/40 transition-all duration-500 group cursor-pointer"
             >
-              <blockquote
-                className="instagram-media !min-w-0 !w-full !m-0 !border-0"
-                data-instgrm-permalink={post.url}
-                data-instgrm-version="14"
-                style={{ background: '#0d0d0d', border: 0, margin: 0, padding: 0, width: '100%' }}
+              <img
+                src={item.img}
+                alt="Go Sarthii"
+                className="w-full object-cover grayscale brightness-75 group-hover:grayscale-0 group-hover:brightness-100 group-hover:scale-105 transition-all duration-700"
               />
-            </motion.div>
+
+              {/* Reel badge */}
+              {item.type === "VIDEO" && (
+                <div className="absolute top-3 right-3 bg-black/70 border border-brand-red/30 px-2 py-1 text-[9px] tracking-widest text-brand-red uppercase">
+                  Reel
+                </div>
+              )}
+
+              {/* Hover overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-5">
+                <div className="flex items-center gap-2">
+                  <Instagram className="w-4 h-4 text-brand-red" />
+                  <span className="text-[10px] tracking-[0.3em] text-white/80 uppercase">View on Instagram</span>
+                  <ArrowUpRight className="w-3.5 h-3.5 text-brand-red ml-auto" />
+                </div>
+              </div>
+
+              {/* Corner accent */}
+              <div className="absolute top-0 left-0 w-6 h-px bg-brand-red opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="absolute top-0 left-0 w-px h-6 bg-brand-red opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            </motion.a>
           ))}
         </div>
 
+        {/* Follow CTA */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -482,6 +495,7 @@ function Gallery() {
     </section>
   );
 }
+
 
 function Contact() {
     const ref = useRef(null);
