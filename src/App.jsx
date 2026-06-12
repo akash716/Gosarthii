@@ -394,7 +394,7 @@ function Founder() {
 }
 // ─── Instagram Posts — replace with your actual post URLs ────────────────────
 const INSTAGRAM_POSTS = [
-  { url: "https://www.instagram.com/p/REPLACE_1/", img: "", type: "IMAGE" },
+  { url: "https://www.instagram.com/reel/DZWwvU3MDc4/?igsh=MWVwZ3NvNjJiZDE0MA==/", img: "", type: "IMAGE" },
   { url: "https://www.instagram.com/p/REPLACE_2/", img: "", type: "IMAGE" },
   { url: "https://www.instagram.com/p/REPLACE_3/", img: "", type: "IMAGE" },
   { url: "https://www.instagram.com/p/REPLACE_4/", img: "", type: "VIDEO" },
