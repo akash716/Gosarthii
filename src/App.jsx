@@ -34,7 +34,6 @@ function Navbar() {
             }
         }
     };
-    // change ag1n
     return (<>
       <nav className={cn("fixed top-0 left-0 right-0 z-[100] px-4 md:px-16 py-4 md:py-6 transition-all duration-500", scrolled ? "bg-bg-dark/95 backdrop-blur-xl border-b border-brand-red/10 py-3 md:py-4" : "bg-transparent")}>
         <div className="flex items-center justify-between">
@@ -313,7 +312,7 @@ function Founder() {
               <motion.div initial={{ scaleY: 0 }} animate={isInView ? { scaleY: 1 } : {}} transition={{ duration: 1, delay: 0.7 }} className="absolute -top-4 -left-4 w-px h-24 bg-brand-red origin-top"/>
 
               <div className="clickable aspect-[4/5] overflow-visible relative shadow-2xl">
-                <motion.img style={{ scale: 1.1, y: imgY }} src="/riyank.jpg?auto=format&fit=crop&w=800&q=85" alt="Riyank Motta" className="w-full h-full object-cover grayscale brightness-50 group-hover:grayscale-0 group-hover:brightness-100 transition-all duration-1000"/>
+                <motion.img style={{ scale: 1.1, y: imgY }} src="/riyank.jpg" alt="Riyank Motta" className="w-full h-full object-cover grayscale brightness-50 group-hover:grayscale-0 group-hover:brightness-100 transition-all duration-1000"/>
                 {/* Metallic Scanning Sweep */}
                 <motion.div animate={{ x: ["-100%", "200%"] }} transition={{ duration: 3, repeat: Infinity, ease: "linear", repeatDelay: 1 }} className="absolute inset-0 bg-linear-to-r from-transparent via-white/10 to-transparent skew-x-[-30deg] pointer-events-none"/>
                 {/* Image Overlay */}
