@@ -392,18 +392,130 @@ function Founder() {
       </motion.div>
     </SectionReveal>);
 }
-// ─── Gallery — apni images public/gallery/ folder mein daalo ─────────────────
-// img: public folder mein image path, url: Instagram post link
-const GALLERY_ITEMS = [
-  { img: "/gallery/g1.jpg", url: "https://www.instagram.com/gosarthii/", type: "IMAGE" },
-  { img: "/gallery/g2.jpg", url: "https://www.instagram.com/gosarthii/", type: "VIDEO" },
-  { img: "/gallery/g3.jpg", url: "https://www.instagram.com/gosarthii/", type: "IMAGE" },
-  { img: "/gallery/g4.jpg", url: "https://www.instagram.com/gosarthii/", type: "IMAGE" },
-  { img: "/gallery/g5.jpg", url: "https://www.instagram.com/gosarthii/", type: "VIDEO" },
-  { img: "/gallery/g6.jpg", url: "https://www.instagram.com/gosarthii/", type: "IMAGE" },
+// ─── Instagram Post URLs — replace with your actual post/reel URLs ────────────
+const INSTAGRAM_POSTS = [
+  { url: "https://www.instagram.com/p/REPLACE_1/", type: "IMAGE" },
+  { url: "https://www.instagram.com/reel/REPLACE_2/", type: "VIDEO" },
+  { url: "https://www.instagram.com/p/REPLACE_3/", type: "IMAGE" },
+  { url: "https://www.instagram.com/p/REPLACE_4/", type: "IMAGE" },
+  { url: "https://www.instagram.com/reel/REPLACE_5/", type: "VIDEO" },
+  { url: "https://www.instagram.com/p/REPLACE_6/", type: "IMAGE" },
 ];
 
+function InstagramCard({ post, index }) {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-50px" });
+  const [thumb, setThumb] = useState(null);
+
+  useEffect(() => {
+    // Fetch thumbnail via Instagram oEmbed (no auth needed for public posts)
+    fetch(`https://api.instagram.com/oembed/?url=${encodeURIComponent(post.url)}&maxwidth=600&omitscript=true`)
+      .then(r => r.json())
+      .then(data => setThumb(data.thumbnail_url))
+      .catch(() => setThumb(null));
+  }, [post.url]);
+
+  return (
+    <motion.a
+      ref={ref}
+      href={post.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      initial={{ opacity: 0, y: 40 }}
+      animate={isInView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.7, delay: index * 0.1, ease: [0.19, 1, 0.22, 1] }}
+      className="break-inside-avoid mb-4 block relative overflow-hidden rounded-sm border border-white/5 hover:border-brand-red/40 transition-all duration-500 group cursor-pointer"
+    >
+      {thumb ? (
+        <img
+          src={thumb}
+          alt="Go Sarthii"
+          className="w-full object-cover grayscale brightness-75 group-hover:grayscale-0 group-hover:brightness-100 group-hover:scale-105 transition-all duration-700"
+        />
+      ) : (
+        <div className="w-full aspect-square bg-white/[0.03] animate-pulse" />
+      )}
+
+      {/* Reel play badge */}
+      {post.type === "VIDEO" && (
+        <div className="absolute top-3 right-3 bg-black/70 border border-brand-red/30 px-2 py-1 text-[9px] tracking-widest text-brand-red uppercase flex items-center gap-1">
+          ▶ Reel
+        </div>
+      )}
+
+      {/* Hover overlay */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-4">
+        <div className="flex items-center gap-2 w-full">
+          <Instagram className="w-4 h-4 text-brand-red flex-shrink-0" />
+          <span className="text-[10px] tracking-[0.3em] text-white/80 uppercase">View on Instagram</span>
+          <ArrowUpRight className="w-3.5 h-3.5 text-brand-red ml-auto" />
+        </div>
+      </div>
+
+      {/* Corner accent */}
+      <div className="absolute top-0 left-0 w-6 h-px bg-brand-red opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+      <div className="absolute top-0 left-0 w-px h-6 bg-brand-red opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+    </motion.a>
+  );
+}
+
 function Gallery() {
+  const sectionRef = useRef(null);
+
+  return (
+    <section id="gallery" ref={sectionRef} className="bg-bg-dark pt-32 pb-24 px-6 md:px-16 relative overflow-hidden">
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-4xl h-px bg-linear-to-r from-transparent via-brand-red/20 to-transparent" />
+      <motion.div
+        animate={{ opacity: [0.05, 0.12, 0.05], scale: [1, 1.05, 1] }}
+        transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60vw] h-[60vw] bg-brand-red/10 rounded-full blur-[150px] pointer-events-none"
+      />
+
+      <div className="max-w-7xl mx-auto relative z-10">
+        {/* Header */}
+        <div className="mb-16 text-center md:text-left">
+          <div className="flex items-center gap-3 mb-6 md:justify-start justify-center">
+            <div className="w-8 h-px bg-brand-red" />
+            <span className="text-[11px] tracking-[0.65em] text-brand-red uppercase">On Instagram</span>
+          </div>
+          <h2 className="font-display text-5xl md:text-8xl lg:text-[clamp(60px,7vw,110px)] leading-none uppercase mb-6">
+            BEHIND THE <span className="font-serif italic font-light text-brand-red">Wheel</span>
+          </h2>
+          <div className="w-16 h-px bg-linear-to-r from-brand-red to-transparent mb-8 mx-auto md:mx-0" />
+          <p className="text-base font-light tracking-widest text-white/70 uppercase max-w-lg leading-relaxed">
+            Real moments. Real machines. Follow our journey.
+          </p>
+        </div>
+
+        {/* Masonry Grid */}
+        <div className="columns-1 sm:columns-2 lg:columns-3 gap-4">
+          {INSTAGRAM_POSTS.map((post, i) => (
+            <InstagramCard key={i} post={post} index={i} />
+          ))}
+        </div>
+
+        {/* Follow CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mt-16 flex justify-center"
+        >
+          <a
+            href="https://www.instagram.com/gosarthii/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="clickable flex items-center gap-3 px-10 py-4 border border-white/20 hover:border-brand-red hover:text-brand-red text-white text-[11px] font-medium tracking-[0.4em] uppercase transition-all duration-300 hover:scale-105"
+          >
+            <Instagram className="w-4 h-4" /> Follow @gosarthii
+          </a>
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
+
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
 
