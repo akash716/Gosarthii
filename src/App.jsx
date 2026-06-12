@@ -516,8 +516,7 @@ function Gallery() {
 }
 
 
-  const sectionRef = useRef(null);
-  const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
+function Contact() {
 
   return (
     <section id="gallery" ref={sectionRef} className="bg-bg-dark pt-32 pb-24 px-6 md:px-16 relative overflow-hidden">
