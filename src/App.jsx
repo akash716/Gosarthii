@@ -392,55 +392,26 @@ function Founder() {
       </motion.div>
     </SectionReveal>);
 }
-// ─── Instagram oEmbed Posts ───────────────────────────────────────────────────
-// Replace these URLs with your actual Instagram post/reel URLs
+// ─── Instagram Posts — replace with your actual post URLs ────────────────────
 const INSTAGRAM_POSTS = [
-  "https://www.instagram.com/p/REPLACE_POST_1/",
-  "https://www.instagram.com/p/REPLACE_POST_2/",
-  "https://www.instagram.com/p/REPLACE_POST_3/",
-  "https://www.instagram.com/p/REPLACE_POST_4/",
-  "https://www.instagram.com/p/REPLACE_POST_5/",
-  "https://www.instagram.com/p/REPLACE_POST_6/",
+  { url: "https://www.instagram.com/p/REPLACE_1/", img: "", type: "IMAGE" },
+  { url: "https://www.instagram.com/p/REPLACE_2/", img: "", type: "IMAGE" },
+  { url: "https://www.instagram.com/p/REPLACE_3/", img: "", type: "IMAGE" },
+  { url: "https://www.instagram.com/p/REPLACE_4/", img: "", type: "VIDEO" },
+  { url: "https://www.instagram.com/p/REPLACE_5/", img: "", type: "IMAGE" },
+  { url: "https://www.instagram.com/p/REPLACE_6/", img: "", type: "IMAGE" },
 ];
 
-function InstagramEmbed({ url, index }) {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-50px" });
-
-  useEffect(() => {
-    if (isInView && window.instgrm) {
-      window.instgrm.Embeds.process();
-    }
-  }, [isInView]);
-
-  return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 40 }}
-      animate={isInView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.7, delay: index * 0.1, ease: [0.19, 1, 0.22, 1] }}
-      className="break-inside-avoid mb-4 overflow-hidden rounded-sm border border-white/5 bg-white/[0.02] hover:border-brand-red/20 transition-all duration-500 group"
-    >
-      <blockquote
-        className="instagram-media !min-w-0 !w-full !m-0 !border-0 !bg-transparent"
-        data-instgrm-permalink={url}
-        data-instgrm-version="14"
-        data-instgrm-captioned
-        style={{ background: 'transparent', border: 0, margin: 0, padding: 0, width: '100%' }}
-      />
-    </motion.div>
-  );
-}
-
 function Gallery() {
+  const sectionRef = useRef(null);
+  const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
+
   useEffect(() => {
-    // Load Instagram embed script once
     if (!document.getElementById('instagram-embed-script')) {
       const script = document.createElement('script');
       script.id = 'instagram-embed-script';
       script.src = 'https://www.instagram.com/embed.js';
       script.async = true;
-      script.defer = true;
       document.body.appendChild(script);
       script.onload = () => window.instgrm?.Embeds.process();
     } else {
@@ -449,8 +420,7 @@ function Gallery() {
   }, []);
 
   return (
-    <section id="gallery" className="bg-bg-dark pt-32 pb-24 px-6 md:px-16 relative overflow-hidden">
-      {/* Background glow */}
+    <section id="gallery" ref={sectionRef} className="bg-bg-dark pt-32 pb-24 px-6 md:px-16 relative overflow-hidden">
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-4xl h-px bg-linear-to-r from-transparent via-brand-red/20 to-transparent" />
       <motion.div
         animate={{ opacity: [0.05, 0.12, 0.05], scale: [1, 1.05, 1] }}
@@ -459,7 +429,6 @@ function Gallery() {
       />
 
       <div className="max-w-7xl mx-auto relative z-10">
-        {/* Section Header */}
         <div className="mb-16 text-center md:text-left">
           <div className="flex items-center gap-3 mb-6 md:justify-start justify-center">
             <div className="w-8 h-px bg-brand-red" />
@@ -476,147 +445,24 @@ function Gallery() {
 
         {/* Masonry Grid */}
         <div className="columns-1 sm:columns-2 lg:columns-3 gap-4">
-          {INSTAGRAM_POSTS.map((url, i) => (
-            <InstagramEmbed key={i} url={url} index={i} />
+          {INSTAGRAM_POSTS.map((post, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 40 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.7, delay: i * 0.1, ease: [0.19, 1, 0.22, 1] }}
+              className="break-inside-avoid mb-4 overflow-hidden rounded-sm border border-white/5 hover:border-brand-red/20 transition-all duration-500"
+            >
+              <blockquote
+                className="instagram-media !min-w-0 !w-full !m-0 !border-0"
+                data-instgrm-permalink={post.url}
+                data-instgrm-version="14"
+                style={{ background: '#0d0d0d', border: 0, margin: 0, padding: 0, width: '100%' }}
+              />
+            </motion.div>
           ))}
         </div>
 
-        {/* Follow CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="mt-16 flex justify-center"
-        >
-          <a
-            href="https://www.instagram.com/gosarthii/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="clickable flex items-center gap-3 px-10 py-4 border border-white/20 hover:border-brand-red hover:text-brand-red text-white text-[11px] font-medium tracking-[0.4em] uppercase transition-all duration-300 hover:scale-105"
-          >
-            <Instagram className="w-4 h-4" /> Follow @gosarthii
-          </a>
-        </motion.div>
-      </div>
-    </section>
-  );
-}
-
-// ─── Behold.so Feed ID ────────────────────────────────────────────────────────
-// behold.so pe jaake apna Feed ID paste karo yahan
-const BEHOLD_FEED_ID = "YOUR_FEED_ID_HERE";
-
-function Gallery() {
-  const sectionRef = useRef(null);
-  const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
-  const [posts, setPosts] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
-
-  useEffect(() => {
-    if (!isInView) return;
-    fetch(`https://feeds.behold.so/${BEHOLD_FEED_ID}`)
-      .then(r => r.json())
-      .then(data => {
-        setPosts(data.slice(0, 6));
-        setLoading(false);
-      })
-      .catch(() => {
-        setError(true);
-        setLoading(false);
-      });
-  }, [isInView]);
-
-  return (
-    <section id="gallery" ref={sectionRef} className="bg-bg-dark pt-32 pb-24 px-6 md:px-16 relative overflow-hidden">
-      {/* Background glow */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-4xl h-px bg-linear-to-r from-transparent via-brand-red/20 to-transparent" />
-      <motion.div
-        animate={{ opacity: [0.05, 0.12, 0.05], scale: [1, 1.05, 1] }}
-        transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60vw] h-[60vw] bg-brand-red/10 rounded-full blur-[150px] pointer-events-none"
-      />
-
-      <div className="max-w-7xl mx-auto relative z-10">
-        {/* Header */}
-        <div className="mb-16 text-center md:text-left">
-          <div className="flex items-center gap-3 mb-6 md:justify-start justify-center">
-            <div className="w-8 h-px bg-brand-red" />
-            <span className="text-[11px] tracking-[0.65em] text-brand-red uppercase">On Instagram</span>
-          </div>
-          <h2 className="font-display text-5xl md:text-8xl lg:text-[clamp(60px,7vw,110px)] leading-none uppercase mb-6">
-            BEHIND THE <span className="font-serif italic font-light text-brand-red">Wheel</span>
-          </h2>
-          <div className="w-16 h-px bg-linear-to-r from-brand-red to-transparent mb-8 mx-auto md:mx-0" />
-          <p className="text-base font-light tracking-widest text-white/70 uppercase max-w-lg leading-relaxed">
-            Real moments. Real machines. Follow our journey.
-          </p>
-        </div>
-
-        {/* Loading */}
-        {loading && (
-          <div className="columns-1 sm:columns-2 lg:columns-3 gap-4">
-            {[...Array(6)].map((_, i) => (
-              <div key={i} className="break-inside-avoid mb-4 bg-white/[0.03] border border-white/5 rounded-sm animate-pulse"
-                style={{ height: i % 3 === 0 ? '320px' : i % 3 === 1 ? '240px' : '280px' }} />
-            ))}
-          </div>
-        )}
-
-        {/* Error */}
-        {error && (
-          <div className="text-center py-20">
-            <p className="text-white/30 text-sm tracking-widest uppercase">Feed load nahi hua — Feed ID check karo</p>
-          </div>
-        )}
-
-        {/* Masonry Grid */}
-        {!loading && !error && (
-          <div className="columns-1 sm:columns-2 lg:columns-3 gap-4">
-            {posts.map((post, i) => (
-              <motion.a
-                key={post.id}
-                href={post.permalink}
-                target="_blank"
-                rel="noopener noreferrer"
-                initial={{ opacity: 0, y: 40 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, delay: i * 0.08, ease: [0.19, 1, 0.22, 1] }}
-                className="break-inside-avoid mb-4 block relative overflow-hidden rounded-sm border border-white/5 hover:border-brand-red/30 transition-all duration-500 group cursor-pointer"
-              >
-                {/* Image or Video thumbnail */}
-                <img
-                  src={post.mediaType === 'VIDEO' ? post.thumbnailUrl : post.mediaUrl}
-                  alt={post.caption?.slice(0, 60) || 'Go Sarthii'}
-                  className="w-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
-                />
-
-                {/* Video badge */}
-                {post.mediaType === 'VIDEO' && (
-                  <div className="absolute top-3 right-3 bg-black/60 border border-white/10 px-2 py-1 text-[9px] tracking-widest text-white/70 uppercase">
-                    Reel
-                  </div>
-                )}
-
-                {/* Hover overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-bg-dark/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-4">
-                  <div>
-                    <div className="flex items-center gap-2 mb-2">
-                      <Instagram className="w-3.5 h-3.5 text-brand-red" />
-                      <span className="text-[10px] tracking-widest text-brand-red uppercase">View on Instagram</span>
-                    </div>
-                    {post.caption && (
-                      <p className="text-white/70 text-xs leading-relaxed line-clamp-2">{post.caption}</p>
-                    )}
-                  </div>
-                </div>
-              </motion.a>
-            ))}
-          </div>
-        )}
-
-        {/* Follow CTA */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
